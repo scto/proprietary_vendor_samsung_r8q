@@ -113,7 +113,7 @@ jobs:
           simg2img /super.img super.raw.img
           sudo rm /super.img
 
-      - name: Extract vendor and odm image from super
+      - name: Extract vendor and odm and system image from super
         if: steps.check.outputs.need_update == 1
         run: |
           tools/bin/lpunpack --partition=vendor --partition=odm --partition=system super.raw.img
