@@ -116,18 +116,15 @@ jobs:
       - name: Extract vendor and odm and system image from super
         if: steps.check.outputs.need_update == 1
         run: |
-          #tools/bin/lpunpack --partition=vendor --partition=odm --partition=system super.raw.img
-          tools/bin/lpunpack --partition=system super.raw.img
-          #ls -la vendor.img odm.img system.img
-          ls -la system.img
+          tools/bin/lpunpack --partition=vendor --partition=odm super.raw.img
+          ls -la vendor.img odm.img
           rm super.raw.img
 
       - name: Archive images for upload
         if: steps.check.outputs.need_update == 1
         run: |
           tar cvf KERNEL-${{ steps.check.outputs.latest_shortversion }}.tar boot.img.lz4 vbmeta.img.lz4
-          #7z a VENDOR-${{ steps.check.outputs.latest_shortversion }}.7z vendor.img odm.img
-          7z a SYSTEM-${{ steps.check.outputs.latest_shortversion }}.7z system.img
+          7z a VENDOR-${{ steps.check.outputs.latest_shortversion }}.7z vendor.img odm.img
 
       - name: Update current version
         if: steps.check.outputs.need_update == 1
@@ -159,7 +156,6 @@ jobs:
             ${{ steps.files.outputs.bl }}
             ${{ steps.files.outputs.cp }}
             ${{ steps.files.outputs.csc }}
-            #KERNEL-${{ steps.check.outputs.latest_shortversion }}.tar
-            #VENDOR-${{ steps.check.outputs.latest_shortversion }}.7z
-            SYSTEM-${{ steps.check.outputs.latest_shortversion }}.7z
+            KERNEL-${{ steps.check.outputs.latest_shortversion }}.tar
+            VENDOR-${{ steps.check.outputs.latest_shortversion }}.7z
 
