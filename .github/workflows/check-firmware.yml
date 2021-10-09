@@ -154,10 +154,10 @@ jobs:
           body_path: versions.txt
           tag_name: ${{ steps.check.outputs.latest_shortversion }}
           files: |
-            ${{ steps.files.outputs.bl }}
-            ${{ steps.files.outputs.cp }}
-            ${{ steps.files.outputs.csc }}
-            KERNEL-${{ steps.check.outputs.latest_shortversion }}.tar
-            VENDOR-${{ steps.check.outputs.latest_shortversion }}.7z
+            #${{ steps.files.outputs.bl }}
+            #${{ steps.files.outputs.cp }}
+            #${{ steps.files.outputs.csc }}
+            #KERNEL-${{ steps.check.outputs.latest_shortversion }}.tar
+            #VENDOR-${{ steps.check.outputs.latest_shortversion }}.7z
             SYSTEM-${{ steps.check.outputs.latest_shortversion }}.7z
 
