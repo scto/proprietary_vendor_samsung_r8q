@@ -162,4 +162,7 @@ jobs:
             ${{ steps.files.outputs.cp }}
             ${{ steps.files.outputs.csc }}
             KERNEL-${{ steps.check.outputs.latest_shortversion }}.tar
+            ODM-${{ steps.check.outputs.latest_shortversion }}.7z
+            PRODUCT-${{ steps.check.outputs.latest_shortversion }}.7z
+            SYSTEM-${{ steps.check.outputs.latest_shortversion }}.7z
             VENDOR-${{ steps.check.outputs.latest_shortversion }}.7z
