@@ -22,6 +22,7 @@ jobs:
       - name: Free disk space
         id: free
         run: |
+          wget https://github.com/apache/flink/blob/02d30ace69dc18555a5085eccf70ee884e73a16e/tools/azure-pipelines/free_disk_space.sh
           chmod +x free_disk_space.sh
           ./free_disk_space.sh
 
