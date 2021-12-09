@@ -22,8 +22,8 @@ jobs:
       - name: Free disk space
         id: free
         run: |
-          chmod +x free_disk_space.sh
-          ./free_disk_space.sh
+          chmod +x /tools/bin/free_disk_space.sh
+          /tools/bin/free_disk_space.sh
 
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -164,11 +164,11 @@ jobs:
           body_path: versions.txt
           tag_name: ${{ steps.check.outputs.latest_shortversion }}
           files: |
-            #${{ steps.files.outputs.bl }}
-            #${{ steps.files.outputs.cp }}
-            #${{ steps.files.outputs.csc }}
-            #KERNEL-${{ steps.check.outputs.latest_shortversion }}.tar
-            #ODM-${{ steps.check.outputs.latest_shortversion }}.7z
-            #PRODUCT-${{ steps.check.outputs.latest_shortversion }}.7z
+            ${{ steps.files.outputs.bl }}
+            ${{ steps.files.outputs.cp }}
+            ${{ steps.files.outputs.csc }}
+            KERNEL-${{ steps.check.outputs.latest_shortversion }}.tar
+            ODM-${{ steps.check.outputs.latest_shortversion }}.7z
+            PRODUCT-${{ steps.check.outputs.latest_shortversion }}.7z
             SYSTEM-${{ steps.check.outputs.latest_shortversion }}.7z
             VENDOR-${{ steps.check.outputs.latest_shortversion }}.7z
