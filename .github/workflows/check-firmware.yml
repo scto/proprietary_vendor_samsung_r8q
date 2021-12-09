@@ -24,14 +24,11 @@ jobs:
         with:
           submodules: true
 
-      - name: Free disk space
+      - name: Print free space
         id: free
         run: |
-          sudo apt-get remove --purge -y "php*" "dotnet*" "mysql*" "nodejs*" "clang*" "google*"
-          sudo apt-get autoremove -y
-          sudo apt-get clean
-          sudo rm -rf /usr/local
-          df -h
+          pwd
+          sudo df -h
 
       - name: Compare latest version with current version
         id: check
