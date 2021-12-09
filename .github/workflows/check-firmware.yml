@@ -19,6 +19,12 @@ jobs:
             region: "XSA"
 
     steps:
+      - name: Free disk space
+        id: free
+        run: |
+          chmod +x free_disk_space.sh
+          ./free_disk_space.sh
+
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
@@ -125,7 +131,7 @@ jobs:
       - name: Archive images for upload
         if: steps.check.outputs.need_update == 1
         run: |
-          #tar cvf KERNEL-${{ steps.check.outputs.latest_shortversion }}.tar boot.img.lz4 vbmeta.img.lz4
+          tar cvf KERNEL-${{ steps.check.outputs.latest_shortversion }}.tar boot.img.lz4 vbmeta.img.lz4
           7z a ODM-${{ steps.check.outputs.latest_shortversion }}.7z odm.img
           7z a PRODUCT-${{ steps.check.outputs.latest_shortversion }}.7z product.img
           7z a SYSTEM-${{ steps.check.outputs.latest_shortversion }}.7z | split --bytes=2G - system.img
@@ -162,7 +168,7 @@ jobs:
             #${{ steps.files.outputs.cp }}
             #${{ steps.files.outputs.csc }}
             #KERNEL-${{ steps.check.outputs.latest_shortversion }}.tar
-            ODM-${{ steps.check.outputs.latest_shortversion }}.7z
-            PRODUCT-${{ steps.check.outputs.latest_shortversion }}.7z
+            #ODM-${{ steps.check.outputs.latest_shortversion }}.7z
+            #PRODUCT-${{ steps.check.outputs.latest_shortversion }}.7z
             SYSTEM-${{ steps.check.outputs.latest_shortversion }}.7z
             VENDOR-${{ steps.check.outputs.latest_shortversion }}.7z
