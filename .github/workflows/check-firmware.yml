@@ -23,11 +23,12 @@ jobs:
         uses: actions/checkout@v2
         with:
           submodules: true
+
       - name: Free disk space
         id: free
         run: |
           cd tools/bin/
-          ./free_disk_space.sh
+          sudo ./free_disk_space.sh
 
       - name: Compare latest version with current version
         id: check
