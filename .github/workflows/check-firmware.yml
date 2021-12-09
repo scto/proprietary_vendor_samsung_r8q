@@ -22,8 +22,8 @@ jobs:
       - name: Free disk space
         id: free
         run: |
-          chmod +x /tools/bin/free_disk_space.sh
-          /tools/bin/free_disk_space.sh
+          cd /tools/bin/
+          ./free_disk_space.sh
 
       - name: Checkout repo
         uses: actions/checkout@v2
