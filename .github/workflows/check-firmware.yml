@@ -22,12 +22,6 @@ jobs:
         with:
           submodules: true
 
-      - name: Print free space
-        id: free
-        run: |
-          pwd
-          sudo df -h
-
       - name: Compare latest version with current version
         id: check
         run: |
