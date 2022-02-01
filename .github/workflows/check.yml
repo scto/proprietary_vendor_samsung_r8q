@@ -1,5 +1,4 @@
 name: Check firmware update
-ACTIONS_STEP_DEBUG=true
 
 on:
   schedule:
