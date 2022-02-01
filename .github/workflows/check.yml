@@ -76,7 +76,7 @@ jobs:
           [[ $version_modem == ${{ steps.check.outputs.latest_modemversion }} ]]
           echo PDA version: $version_short > versions.txt
           echo CSC version: $version_csc >> versions.txt
-          echo Modem version: $version_modem >> versions.txt
+          #echo Modem version: $version_modem >> versions.txt
 
       - name: Check contents of downloaded firmware
         if: steps.check.outputs.need_update == 1
