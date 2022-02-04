@@ -13,8 +13,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - model: "SM-G7810"
-            region: "CHC"
           - model: "SM-G781B"
             region: "SWC"
           - model: "SM-G781U"
