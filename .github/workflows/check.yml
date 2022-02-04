@@ -13,8 +13,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - model: "SM-G7810"
+            region: "CHC"
           - model: "SM-G781B"
             region: "SWC"
+          - model: "SM-G781U"
+            region: "XAS"
 
     steps:
       - name: Checkout repo
@@ -38,19 +42,22 @@ jobs:
           echo ::set-output name=latest_modemversion::$latest_modem
           echo ::set-output name=need_update::$need_update
 
+      - name: Use Node.js 15
+        if: steps.check.outputs.need_update == 1
+        uses: actions/setup-node@v1
+        with:
+          node-version: 15
+
       - name: Install dependencies
         if: steps.check.outputs.need_update == 1
         run: |
           sudo apt-get update
           sudo apt-get install -y simg2img liblz4-tool
-          wget https://github.com/jesec/SamFirm.NET/releases/latest/download/linux-x64 -O samfirm
-          chmod +x samfirm
+          sudo npm i -g samfirm
 
       - name: Fetch firmware
         if: steps.check.outputs.need_update == 1
-        run: |
-          ./samfirm -m ${{ matrix.model }} -r ${{ matrix.region }}
-          rm samfirm
+        run: samfirm -m ${{ matrix.model }} -r ${{ matrix.region }}
 
       - name: Print directory structure
         if: steps.check.outputs.need_update == 1
@@ -76,7 +83,7 @@ jobs:
           [[ $version_modem == ${{ steps.check.outputs.latest_modemversion }} ]]
           echo PDA version: $version_short > versions.txt
           echo CSC version: $version_csc >> versions.txt
-#          echo Modem version: $version_modem >> versions.txt
+          echo Modem version: $version_modem >> versions.txt
 
       - name: Check contents of downloaded firmware
         if: steps.check.outputs.need_update == 1
@@ -113,18 +120,17 @@ jobs:
           simg2img /super.img super.raw.img
           sudo rm /super.img
 
-      - name: Extract vendor, product and odm image from super
+      - name: Extract vendor and odm image from super
         if: steps.check.outputs.need_update == 1
         run: |
-          tools/bin/lpunpack --partition=vendor --partition=odm --partition=product super.raw.img
-          ls -la vendor.img odm.img product.img
+          tools/bin/lpunpack --partition=vendor --partition=odm super.raw.img
+          ls -la vendor.img odm.img
           rm super.raw.img
 
       - name: Archive images for upload
         if: steps.check.outputs.need_update == 1
         run: |
           tar cvf KERNEL-${{ steps.check.outputs.latest_shortversion }}.tar boot.img.lz4 vbmeta.img.lz4
-          7z a PRODUCT-${{ steps.check.outputs.latest_shortversion }}.7z product.img
           7z a VENDOR-${{ steps.check.outputs.latest_shortversion }}.7z vendor.img odm.img
 
       - name: Update current version
@@ -158,5 +164,4 @@ jobs:
             ${{ steps.files.outputs.cp }}
             ${{ steps.files.outputs.csc }}
             KERNEL-${{ steps.check.outputs.latest_shortversion }}.tar
-            PRODUCT-${{ steps.check.outputs.latest_shortversion }}.7z
             VENDOR-${{ steps.check.outputs.latest_shortversion }}.7z
