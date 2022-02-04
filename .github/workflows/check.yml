@@ -65,18 +65,18 @@ jobs:
           echo ::set-output name=cp::`find -name CP*`
           echo ::set-output name=csc::`find -name HOME_CSC*`
 
-      - name: Check downloaded firmware version
-        if: steps.check.outputs.need_update == 1
-        run: |
-          version_short=`echo ${{ steps.files.outputs.ap }} | cut -d'_' -f3`
-          version_csc=`echo ${{ steps.files.outputs.csc }} | cut -d'_' -f6`
-          version_modem=`echo ${{ steps.files.outputs.cp }} | cut -d'_' -f3`
-          [[ $version_short == ${{ steps.check.outputs.latest_shortversion }} ]]
-          [[ $version_csc == ${{ steps.check.outputs.latest_cscversion }} ]]
-          [[ $version_modem == ${{ steps.check.outputs.latest_modemversion }} ]]
-          echo PDA version: $version_short > versions.txt
-          echo CSC version: $version_csc >> versions.txt
-          echo Modem version: $version_modem >> versions.txt
+#      - name: Check downloaded firmware version
+#        if: steps.check.outputs.need_update == 1
+#        run: |
+#          version_short=`echo ${{ steps.files.outputs.ap }} | cut -d'_' -f3`
+#          version_csc=`echo ${{ steps.files.outputs.csc }} | cut -d'_' -f6`
+#          version_modem=`echo ${{ steps.files.outputs.cp }} | cut -d'_' -f3`
+#          [[ $version_short == ${{ steps.check.outputs.latest_shortversion }} ]]
+#          [[ $version_csc == ${{ steps.check.outputs.latest_cscversion }} ]]
+#          [[ $version_modem == ${{ steps.check.outputs.latest_modemversion }} ]]
+#          echo PDA version: $version_short > versions.txt
+#          echo CSC version: $version_csc >> versions.txt
+#          echo Modem version: $version_modem >> versions.txt
 
       - name: Check contents of downloaded firmware
         if: steps.check.outputs.need_update == 1
