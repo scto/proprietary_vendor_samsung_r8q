@@ -164,3 +164,9 @@ jobs:
             ${{ steps.files.outputs.csc }}
             KERNEL-${{ steps.check.outputs.latest_shortversion }}.tar
             VENDOR-${{ steps.check.outputs.latest_shortversion }}.7z
+
+      - name: show job status
+       if: always()
+       run: echo $status
+       env:
+         status: ${{job.status}}
