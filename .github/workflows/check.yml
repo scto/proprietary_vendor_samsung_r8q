@@ -79,7 +79,6 @@ jobs:
           [[ $version_short == ${{ steps.check.outputs.latest_shortversion }} ]]
           [[ $version_csc == ${{ steps.check.outputs.latest_cscversion }} ]]
           [[ $version_modem == ${{ steps.check.outputs.latest_modemversion }} ]]
-          touch versions.txt
           echo PDA version: $version_short > versions.txt
           echo CSC version: $version_csc >> versions.txt
           echo Modem version: $version_modem >> versions.txt
